@@ -6,7 +6,7 @@ function logicaDano(personagem: Personagem): number{
     if(d20 === 1){
         return 0;
     }
-    let danoTotal = d20 + personagem.forca;
+    let danoTotal = d20 + personagem.getForca();
     if(d20 === 20){
         danoTotal *= 2;
         return danoTotal;
@@ -15,7 +15,9 @@ function logicaDano(personagem: Personagem): number{
 }
 
 export function atacar(atacante: Personagem, alvo:Personagem): number{
+    const hpAtualDoAlvo = alvo.gethp();
     const dano = logicaDano(atacante);
-    alvo.hpMax -= dano; 
-    return alvo.hpMax;
+    const novoHp = hpAtualDoAlvo - dano;
+    alvo.setHp(novoHp) ;
+    return novoHp;
 }
