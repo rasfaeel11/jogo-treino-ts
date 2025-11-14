@@ -1,6 +1,5 @@
-import { Guerreiro  } from "../model/Guerreiro";
-import { Mago } from "../model/Mago";
-import { atacar } from "../CombatService/Combat";
+import { Guerreiro, Mago } from "../model";
+import { atacar, curar } from "../service/";
 
 const heroi = new Guerreiro("Arthur");
 const vilao = new Mago("Merlin");

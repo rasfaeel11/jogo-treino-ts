@@ -1,4 +1,4 @@
-import { Personagem } from "../model/Personagem";
+import { Personagem } from "../../model/Personagem";
 
 
 function logicaDano(personagem: Personagem): number{
