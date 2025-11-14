@@ -6,6 +6,7 @@
             const hpMago = 35;
             const manaMago = 30;
             const forcaMago = 2;
+            const qtdPot = 3;
 
             super(
                 nome,
@@ -13,7 +14,8 @@
                 hpMago,
                 hpMago,
                 manaMago,
-                forcaMago
+                forcaMago,
+                qtdPot
             );
 
         }

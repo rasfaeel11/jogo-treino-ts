@@ -5,7 +5,8 @@ export abstract class Personagem {
         protected hp: number,
         protected hpMax: number,
         protected mana: number,
-        protected forca: number
+        protected forca: number,
+        private _qtdPot: number
         
     ){
       // this etc bla bla bla  
@@ -16,5 +17,11 @@ export abstract class Personagem {
     public gethp(): number {return this.hp; }
     public setHp(novoHp: number): void {
     this.hp = novoHp;
+    }
+    public getQtdPot(): number {
+      return this._qtdPot;
+    }
+    public setQtdPot(value: number) {
+      this._qtdPot = value;
     }
 }
