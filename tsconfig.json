@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    /* Módulos */
+    "module": "CommonJS",
+    "moduleResolution": "node",
+
+    /* Rigor */
+    "strict": true,
+
+    /* JavaScript */
+    "target": "ES2020",
+    "esModuleInterop": true
+  }
+}
