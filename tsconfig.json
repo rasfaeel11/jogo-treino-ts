@@ -9,6 +9,9 @@
 
     /* JavaScript */
     "target": "ES2020",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+
+    /* Node.js globals (process, readline etc.) */
+    "types": ["node"]
   }
 }
