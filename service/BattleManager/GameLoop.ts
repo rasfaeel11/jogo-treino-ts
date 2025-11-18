@@ -3,6 +3,7 @@ import { atacar, curar } from "../CombatService/Combat";
 import { Personagem } from "../../model/Personagem";
 import { Guerreiro } from "../../model";
 import { Mago } from "../../model";
+import { GameUI } from "../../view/TerminalView";
 
 let principal: Personagem;
 let alvo: Personagem;
@@ -79,15 +80,12 @@ function turnoInimigo() {
 // ========================
 export async function iniciarCombate() {
 
-    console.log("\n=== COMBATE INICIADO ===");
+    GameUI.mensagem("\n=== COMBATE INICIADO ===");
 
     while (alvo.gethp() > 0 && principal.gethp() > 0) {
 
-        console.log(`\nSeu HP: ${principal.gethp()}/${principal.gethpMax()}`);
-        console.log(`HP do Inimigo: ${alvo.gethp()}/${alvo.gethpMax()}`);
-
-        console.log("\n1 - Atacar");
-        console.log("2 - Curar");
+        GameUI.exibirStatus(principal, alvo);
+        GameUI.exibirAcoes();
 
         const entrada = await ask("Escolha sua ação: ");
         const escolha = Number(entrada);
@@ -95,17 +93,18 @@ export async function iniciarCombate() {
         turnoJogador(escolha);
 
         if (alvo.gethp() <= 0) {
-            console.log("\n🎉 Você venceu o combate!");
+            GameUI.mensagem("\n🎉 Você venceu o combate!");
             break;
         }
 
         turnoInimigo();
 
         if (principal.gethp() <= 0) {
-            console.log("\n💀 Você foi derrotado...");
+            GameUI.mensagem("\n💀 Você foi derrotado...");
             break;
         }
     }
-
     rl.close();
 }
+
+

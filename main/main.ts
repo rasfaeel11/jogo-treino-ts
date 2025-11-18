@@ -1,4 +1,3 @@
-import readline from "readline";
 import { iniciarJogo, iniciarCombate, ask } from "../service/BattleManager/GameLoop";
 
 (async () => {
