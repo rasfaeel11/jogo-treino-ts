@@ -1,7 +1,7 @@
 export abstract class Personagem {
     constructor(
         public nome: string,
-        protected classe: string,
+        private _classe: string,
         protected hp: number,
         protected hpMax: number,
         protected mana: number,
@@ -24,4 +24,12 @@ export abstract class Personagem {
     public setQtdPot(value: number) {
       this._qtdPot = value;
     }
+
+     protected getClasse(): string {
+      return this._classe;
+    }
+    protected setClasse(value: string) {
+      this._classe = value;
+    }
+
 }
