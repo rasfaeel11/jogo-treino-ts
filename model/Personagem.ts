@@ -1,12 +1,14 @@
 export abstract class Personagem {
     constructor(
         public nome: string,
-        private _classe: string,
+        protected _classe: string,
         protected hp: number,
         protected hpMax: number,
-        protected mana: number,
+        protected _mana: number,
         protected forca: number,
-        private _qtdPot: number
+        protected _qtdPot: number,
+        private _inteligencia: number,
+        private _manaMax: number
         
     ){
       // this etc bla bla bla  
@@ -31,5 +33,25 @@ export abstract class Personagem {
     protected setClasse(value: string) {
       this._classe = value;
     }
+    public getMana(): number {
+    return this._mana;
+  }
+  public setMana(value: number) {
+    this._mana = value;
+  }
+    public getInteligencia(): number {
+    return this._inteligencia;
+  }
+  public setInteligencia(value: number) {
+    this._inteligencia = value;
+  }
+
+    public getManaMax(): number {
+    return this._manaMax;
+  }
+  protected setManaMax(value: number) {
+    this._manaMax = value;
+  }
+
 
 }

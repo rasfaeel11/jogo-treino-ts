@@ -1,5 +1,5 @@
 import readline from "readline";
-import { atacar, curar } from "../CombatService/Combat";
+import { atacar, ataqueMagico, curar } from "../CombatService/Combat";
 import { Personagem } from "../../model/Personagem";
 import { Guerreiro } from "../../model";
 import { Mago } from "../../model";
@@ -51,6 +51,9 @@ function turnoJogador(escolha: number) {
         case 2:
             return curar(principal);
 
+        case 3:
+            return ataqueMagico(principal, alvo);
+
         default:
             console.log("Escolha inválida!");
     }
@@ -63,15 +66,20 @@ function turnoInimigo() {
     const chance = Math.random();
 
     if (
-        alvo.gethp() <= 0.30 * alvo.gethpMax() && 
+        alvo.gethp() <= 0.15 * alvo.gethpMax() && 
         alvo.getQtdPot() > 0 && 
         chance < 0.3
     ) {
-        console.log("\nO inimigo usa uma poção!");
-        return curar(alvo);
+        let cura = curar(alvo);
+        GameUI.mensagem("\nO inimigo usa uma poção e curou " + cura);
+        return cura;
+    } else if(alvo.getMana() > 5 && chance < 0.7){
+        let dano = ataqueMagico(alvo, principal);
+        GameUI.mensagem("\nO inimigo usou um Ataque Magico e causou " + dano + " de dano magico!");
+        return dano;
     }
 
-    console.log("\nO inimigo te ataca!");
+    GameUI.mensagem("\nO inimigo te ataca com um Ataque Fisico!");
     return atacar(alvo, principal);
 }
 

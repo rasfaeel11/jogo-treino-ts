@@ -7,6 +7,8 @@ export class Guerreiro extends Personagem {
         const manaGuerreiro = 10;
         const forcaGuerreiro = 7;
         const qtdPot = 3;
+        const _inteligenciaGuerreiro = 2;
+        const _manaMax = 10;
 
         super(
             nome, 
@@ -15,7 +17,9 @@ export class Guerreiro extends Personagem {
             hpGuerreiro,
             manaGuerreiro,
             forcaGuerreiro,
-            qtdPot
+            qtdPot,
+            _inteligenciaGuerreiro,
+            _manaMax
         );
     }
 }
