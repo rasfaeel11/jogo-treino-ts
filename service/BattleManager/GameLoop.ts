@@ -1,4 +1,3 @@
-import readline from "readline";
 import { atacar, ataqueMagico, curar } from "../CombatService/Combat";
 import { Personagem } from "../../model/Personagem";
 import { Guerreiro } from "../../model/Guerreiro";
@@ -8,16 +7,6 @@ import { GameUI } from "../../view/TerminalView";
 export class GameLoop {
     private principal!: Personagem;
     private alvo!: Personagem;
-    private rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout
-    });
-
-    public ask(question: string): Promise<string> {
-        return new Promise(resolve => {
-            this.rl.question(question, resolve);
-        });
-    }
 
     public iniciarJogo(nome: string, escolhaClasse: number): Personagem {
         switch (escolhaClasse) {
@@ -34,6 +23,32 @@ export class GameLoop {
             default:
                 throw new Error("Classe inválida.");
         }
+    }
+
+    public getPrincipal(): Personagem {
+        return this.principal;
+    }
+
+    public getAlvo(): Personagem {
+        return this.alvo;
+    }
+
+    public processarTurno(escolha: number): boolean {
+        this.turnoJogador(escolha);
+
+        if (this.alvo.gethp() <= 0) {
+            GameUI.mensagem("\n🎉 Você venceu o combate!");
+            return false;
+        }
+
+        this.turnoInimigo();
+
+        if (this.principal.gethp() <= 0) {
+            GameUI.mensagem("\n💀 Você foi derrotado...");
+            return false;
+        }
+
+        return true;
     }
 
     private turnoJogador(escolha: number) {
@@ -71,33 +86,5 @@ export class GameLoop {
 
         GameUI.mensagem("\nO inimigo te ataca com um Ataque Fisico!");
         return atacar(this.alvo, this.principal);
-    }
-
-    public async iniciarCombate() {
-        GameUI.mensagem("\n=== COMBATE INICIADO ===");
-
-        while (this.alvo.gethp() > 0 && this.principal.gethp() > 0) {
-
-            GameUI.exibirStatus(this.principal, this.alvo);
-            GameUI.exibirAcoes();
-
-            const entrada = await this.ask("Escolha sua ação: ");
-            const escolha = Number(entrada);
-
-            this.turnoJogador(escolha);
-
-            if (this.alvo.gethp() <= 0) {
-                GameUI.mensagem("\n🎉 Você venceu o combate!");
-                break;
-            }
-
-            this.turnoInimigo();
-
-            if (this.principal.gethp() <= 0) {
-                GameUI.mensagem("\n💀 Você foi derrotado...");
-                break;
-            }
-        }
-        this.rl.close();
     }
 }
