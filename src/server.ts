@@ -30,29 +30,25 @@ app.post('/iniciar', (req, res) => {
 app.post('/jogar', (req, res) => {
     if (!jogo) {
         return res.status(400).json({ 
-            erro: "O jogo não existe ou já acabou! Faça um POST em /iniciar para começar um novo." 
+            erro: "O jogo não existe ou já acabou! Faça um POST em /iniciar." 
         });
     }
 
     const { acao } = req.body;
 
-    // Processa o turno
-    const jogoContinua = jogo.processarTurno(Number(acao));
+    // Recebe o objeto complexo do GameLoop
+    const resultado = jogo.processarTurno(Number(acao));
 
-    // Prepara a resposta padrão
     const resposta = {
-        jogoContinua: jogoContinua,
+        jogoContinua: resultado.jogoContinua,
+        // AQUI ESTÁ A MÁGICA: Enviamos o histórico do turno
+        historicoDeBatalha: resultado.logs, 
         heroi: jogo.getPrincipal(),
-        inimigo: jogo.getAlvo(),
-        mensagem: "Turno processado."
+        inimigo: jogo.getAlvo()
     };
 
-    // --- A CORREÇÃO ESTÁ AQUI ---
-    if (!jogoContinua) {
-        // Se o jogo acabou (false), a gente avisa e LIMPA a memória
-        resposta.mensagem = "O Jogo Acabou! O estado foi resetado.";
-        
-        // Reseta a variável global para null
+    if (!resultado.jogoContinua) {
+        // Se acabou, adicionamos um log final se quiser
         jogo = null; 
     }
 

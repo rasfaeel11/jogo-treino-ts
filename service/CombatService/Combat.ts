@@ -42,7 +42,7 @@ export function atacar(atacante: Personagem, alvo:Personagem): number{
     const dano = logicaDanoFisico(atacante);
     const novoHp = hpAtualDoAlvo - dano;
     alvo.setHp(novoHp) ;
-    return novoHp;
+    return dano;
 }
 
 export function curar(alvo: Personagem): number {
@@ -67,7 +67,7 @@ export function curar(alvo: Personagem): number {
         novaVida = hpMax;
     }
     alvo.setHp(novaVida);
-    return novaVida;
+    return curar;
 }
 
 export function ataqueMagico(atacante: Personagem, alvo: Personagem): number{
@@ -75,5 +75,5 @@ export function ataqueMagico(atacante: Personagem, alvo: Personagem): number{
     const dano = logicaDanoMagico(atacante);
     const novoHp = hpAtualDoAlvo - dano;
     alvo.setHp(novoHp);
-    return novoHp;
+    return dano;
 }
