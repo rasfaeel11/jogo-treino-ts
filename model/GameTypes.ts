@@ -1,6 +1,3 @@
 export type AcaoCombate = 'ATACAR' | 'CURAR' | 'MAGIA' | 'FUGIR';
 
-export interface ResultadoTurno {
-    jogoContinua: boolean;
-    logs: string[];
-}
+export type ClassesJogo = 'GUERREIRO' | 'MAGO';

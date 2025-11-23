@@ -1,4 +1,4 @@
 json tests
-body iniciar = { "nome": "Rasteel", "classe": 1 }
+body iniciar = { "nome": "Rasteel", "classe": "GUERREIRO" }
 
 body jogar = { "acao": 'ATACAR' }

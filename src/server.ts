@@ -1,6 +1,6 @@
 import express from 'express';
 import { GameLoop } from '../service/BattleManager/GameLoop';
-import { AcaoCombate } from '../model/GameTypes';
+import { AcaoCombate, ClassesJogo } from '../model/GameTypes';
 
 const app = express();
 app.use(express.json()); 
@@ -18,7 +18,14 @@ app.post('/iniciar', (req, res) => {
     }
 
     jogo = new GameLoop();
-    const personagem = jogo.iniciarJogo(nome, Number(classe));
+    const personagem = jogo.iniciarJogo(nome, classe);
+
+    const classeValidas = ['GUERREIRO', 'MAGO'];
+    if (!classeValidas.includes(classe)) {
+        return res.status(400).json({ 
+            erro: `Ação inválida! Use: ${classeValidas.join(', ')}` 
+        });
+    }
 
     res.json({
         mensagem: "Jogo iniciado!",

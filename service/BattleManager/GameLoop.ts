@@ -2,7 +2,7 @@ import { atacar, ataqueMagico, curar } from "../CombatService/Combat";
 import { Personagem } from "../../model/Personagem";
 import { Guerreiro } from "../../model/Guerreiro";
 import { Mago } from "../../model/Mago";
-import { AcaoCombate } from "../../model/GameTypes";
+import { AcaoCombate, ClassesJogo } from "../../model/GameTypes";
 
 // Definindo o que o processarTurno vai devolver
 interface ResultadoTurno {
@@ -22,14 +22,14 @@ export class GameLoop {
         this.logs.push(msg);
     }
 
-    public iniciarJogo(nome: string, escolhaClasse: number): Personagem {
+    public iniciarJogo(nome: string, escolhaClasse: ClassesJogo): Personagem {
         switch (escolhaClasse) {
-            case 1:
+            case 'GUERREIRO':
                 this.alvo = new Mago("Merlin");
                 this.principal = new Guerreiro(nome);
                 return this.principal;
 
-            case 2:
+            case 'MAGO':
                 this.alvo = new Guerreiro("Arthur");
                 this.principal = new Mago(nome);
                 return this.principal;
