@@ -1,0 +1,4 @@
+json tests
+body iniciar = { "nome": "Rasteel", "classe": 1 }
+
+body jogar = { "acao": 'ATACAR' }

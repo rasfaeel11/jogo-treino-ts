@@ -1,5 +1,6 @@
 import express from 'express';
 import { GameLoop } from '../service/BattleManager/GameLoop';
+import { AcaoCombate } from '../model/GameTypes';
 
 const app = express();
 app.use(express.json()); 
@@ -36,8 +37,14 @@ app.post('/jogar', (req, res) => {
 
     const { acao } = req.body;
 
-    // Recebe o objeto complexo do GameLoop
-    const resultado = jogo.processarTurno(Number(acao));
+
+    const acoesValidas = ['ATACAR', 'CURAR', 'MAGIA', 'FUGIR'];
+    if (!acoesValidas.includes(acao)) {
+        return res.status(400).json({ 
+            erro: `Ação inválida! Use: ${acoesValidas.join(', ')}` 
+        });
+    }
+    const resultado = jogo.processarTurno(acao as AcaoCombate);
 
     const resposta = {
         jogoContinua: resultado.jogoContinua,

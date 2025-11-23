@@ -2,6 +2,7 @@ import { atacar, ataqueMagico, curar } from "../CombatService/Combat";
 import { Personagem } from "../../model/Personagem";
 import { Guerreiro } from "../../model/Guerreiro";
 import { Mago } from "../../model/Mago";
+import { AcaoCombate } from "../../model/GameTypes";
 
 // Definindo o que o processarTurno vai devolver
 interface ResultadoTurno {
@@ -41,12 +42,12 @@ export class GameLoop {
     public getPrincipal(): Personagem { return this.principal; }
     public getAlvo(): Personagem { return this.alvo; }
 
-    public processarTurno(escolha: number): ResultadoTurno {
+    public processarTurno(acao: AcaoCombate): ResultadoTurno {
         // 1. Limpa o caderno no início do turno (apaga logs antigos)
         this.logs = [];
 
         // 2. Turno do Jogador
-        this.turnoJogador(escolha);
+        this.turnoJogador(acao);
 
         // 3. Verifica Vitória
         if (this.alvo.gethp() <= 0) {
@@ -67,18 +68,18 @@ export class GameLoop {
         return { jogoContinua: true, logs: this.logs };
     }
 
-    private turnoJogador(escolha: number) {
+    private turnoJogador(acao: AcaoCombate) {
         // Aqui você pode melhorar as mensagens depois
-        switch (escolha) {
-            case 1:
+        switch (acao) {
+            case 'ATACAR':
                 const danoFisico = atacar(this.principal, this.alvo);
                 this.log(`Você atacou e causou ${danoFisico} de dano.`);
                 break;
-            case 2:
+            case 'CURAR':
                 const cura = curar(this.principal);
                 this.log(`Você usou uma poção e recuperou ${cura} de HP.`);
                 break;
-            case 3:
+            case 'MAGIA':
                 const danoMagico = ataqueMagico(this.principal, this.alvo);
                 this.log(`Você usou magia e causou ${danoMagico} de dano.`);
                 break;
