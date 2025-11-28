@@ -1,4 +1,3 @@
-json tests
-body iniciar = { "nome": "Rasteel", "classe": "GUERREIRO" }
-
-body jogar = { "acao": 'ATACAR' }
+node_modules/
+.env
+dist/

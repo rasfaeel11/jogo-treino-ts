@@ -32,7 +32,7 @@ function logicaDanoMagico(personagem: Personagem): number{
     return danoTotal;
 }
 
-function rolarDadodd20(): number{
+export function rolarDadodd20(): number{
     const d20 = Math.floor(Math.random() * 20) + 1;
     return d20;
 }
